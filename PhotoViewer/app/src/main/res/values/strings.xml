@@ -1,0 +1,7 @@
+<resources>
+<string name="collection_count">전체 %1$d개의 기록 · 현재 %2$d개</string>
+<string name="sync_done">동기화 완료 · %1$d장의 사진</string>
+<string name="upload_done">업로드 및 동기화 완료 · %1$d장의 사진</string>
+<string name="login_done">%1$s님 로그인 완료</string>
+<string name="error_message">처리 실패 · %1$s</string>
+</resources>
