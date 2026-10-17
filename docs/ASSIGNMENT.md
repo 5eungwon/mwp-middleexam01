@@ -13,7 +13,7 @@
 | 7 | 24쪽 Socket Server | scripts/socket_capture.py가 실제 Android 요청 수신, 토큰 마스킹, .http 파일 VS Code 캡처 |
 | 8–10 | 25쪽 로컬 연동 | 실제 localhost Chrome, Android 시작 및 강의 API 동기화 캡처 |
 | 11 | 19쪽 Upload | UI 제공(상) 선택. onClickUpload → openEditor → uploadPost → 강의 API POST |
-| 12–13 | PythonAnywhere | 기존 사용자 서버 /api_root/Post/ HTTP 200 확인, 클라우드 실제 브라우저·앱 동기화 증빙 준비 |
+| 12–13 | PythonAnywhere | 새 Django 배포, 실제 HTTPS API 14개 검증, 브라우저·Android 동기화 증빙 |
 | 14 | Client 편의 기능 최대 5개 | 즐겨찾기, 서버 설정, 목록 캐시, 내 사진 수정 UI, 삭제 확인 UI |
 
 ## 강의 API 계약
@@ -32,7 +32,7 @@ Android는 위 경로를 기본 사용합니다. 설정의 `강의 API 사용 (J
 
 ## 클라우드 증빙의 범위
 
-`asdfgh0986.pythonanywhere.com`의 기존 루트 블로그 및 `/api_root/Post/`가 동작하는 상태를 확인했습니다. 새 Android 클라이언트와 기존 서버의 API 호환 연동을 검사합니다. 저장소의 새 Django 소스를 해당 계정에 재배포했다는 뜻은 아닙니다. 재배포용 WSGI와 절차는 별도로 제공하며, 기존 사이트 설정 변경에는 계정 콘솔 접근이 필요합니다.
+`asdfgh0986.pythonanywhere.com`을 새 Django 서버로 전환했습니다. 강의·확장 API, 로그인, 사진 업로드·조회·수정·삭제를 실제 HTTPS 요청으로 검증했습니다. Android 동기화 캡처도 새 서버 기준입니다. 기존 프로젝트·DB 및 웹 설정은 보존했으며 경로와 복구 방법은 `PYTHONANYWHERE.md`에 기록했습니다.
 
 ## Coverage 범위
 

@@ -30,7 +30,7 @@ ROOT/
 - 실제 Terminal TCP 검증, CodeBeautify 검증, Socket Server 수신 파일의 VS Code 화면을 준비했습니다.
 - 자동 테스트 **17개 통과**, 분기 포함 **Code Coverage 98%**. [HTML 보고서](docs/coverage/index.html).
 - Android는 RecyclerView/ImageAdapter, 강의 API 기본 동기화 및 입력 폼 기반 Upload(상)을 구현했습니다.
-- PythonAnywhere 기존 서버의 정확한 강의 API가 HTTP 200으로 동작합니다. 새 Android와의 실제 클라우드 동기화 캡처를 포함합니다. 새 Django 소스 재배포와는 구분합니다.
+- PythonAnywhere에 새 Django 서버를 배포했습니다: https://asdfgh0986.pythonanywhere.com . 로그인·업로드·수정·삭제의 실제 HTTPS 검증과 Android 동기화 증빙을 포함합니다. 기존 소스·DB와 복구 설정은 별도 보존했습니다.
 
 [검증한 디버그 APK 다운로드](docs/downloads/PhotoViewer-debug.apk)
 

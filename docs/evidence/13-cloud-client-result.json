@@ -1,9 +1,21 @@
 {
   "server": "https://asdfgh0986.pythonanywhere.com",
   "endpoint": "/api_root/Post/",
-  "client": "new Android PhotoViewer",
-  "visible_title": "블로그포스팅1",
+  "client": "Android PhotoViewer",
+  "visible_title": "Cloud Android Upload",
+  "photos_received": 4,
   "sync_verified": true,
-  "server_redeployed": false,
-  "scope": "Existing cloud server + new Android interoperability"
+  "android_upload_verified": true,
+  "server_redeployed": true,
+  "post": {
+    "id": 5,
+    "author": 2,
+    "author_name": "photoblog-admin",
+    "title": "Cloud Android Upload",
+    "text": "",
+    "created_date": "2026-10-17T20:07:26.495577+09:00",
+    "published_date": "2026-10-17T20:07:26.495627+09:00",
+    "image": "https://asdfgh0986.pythonanywhere.com/media/photos/80675ef1879d4ee18baf33740bcc62d2.jpg"
+  },
+  "scope": "New Django deployment; Android authenticated multipart upload and HTTPS synchronization"
 }

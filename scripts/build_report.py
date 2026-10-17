@@ -34,8 +34,8 @@ requirements = {
  11: ('완료','○','A10 · 로컬 강의 API 동기화'),
  12: ('미선택','N/A','UI 제공 방식(상)을 선택함'),
  13: ('완료','○','A11-1·2·3 · 폼/사진 선택/업로드 결과'),
- 14: ('완료','○','A12-1·2 · 기존 클라우드 서버/API 동작'),
- 15: ('완료','○','A13 · 새 Android와 기존 클라우드 동기화'),
+ 14: ('완료','○','A12-1·2 · 새 Django 클라우드 서버/API 동작'),
+ 15: ('완료','○','A13 · Android와 새 클라우드 동기화'),
 }
 for index,(complete,judgment,evidence) in requirements.items():
     row=table.rows[index]
@@ -148,7 +148,7 @@ paragraph('강의 API: /api_root/Post/ → JSON Array. author(숫자), title, te
 paragraph(f'검증 결과: Django APITestCase 17개 통과, 분기 포함 Code Coverage {coverage}%. 측정 범위는 posts 앱의 API/웹/모델/폼 코드이며 테스트·마이그레이션·데모 생성 코드는 제외했습니다. HTML 원본은 docs/coverage/index.html입니다.')
 paragraph('Android는 강의의 /api_root/Post/를 기본 사용하고 RecyclerView/ImageAdapter로 사진을 표시합니다. deprecated AsyncTask는 ExecutorService와 Handler로 대체했습니다. 사진 선택은 ACTION_OPEN_DOCUMENT를 사용하므로 전체 저장소 접근 권한은 필요하지 않습니다. 네트워크 HTTP 허용은 에뮬레이터/루프백에 제한하고 클라우드는 HTTPS를 사용합니다.')
 paragraph('환경: macOS arm64 / Python 3.12 / Django 5.2.18 / DRF 3.16.1 / Android Pixel 7 Android 15(API 35), compileSdk 36. Android assembleDebug와 lintDebug를 실행했습니다.')
-paragraph('PythonAnywhere: 기존 배포 서버 https://asdfgh0986.pythonanywhere.com/api_root/Post/ 가 HTTP 200과 강의 JSON Array를 반환합니다. 새 Android 앱이 이 서버의 실제 게시물과 사진을 수신하는 호환 연동을 검증했습니다. 요구사항 12·13은 이 기존 클라우드 서버와 새 클라이언트의 실제 동작을 증빙합니다. 저장소의 새 Django 소스를 PythonAnywhere에 재배포한 것은 아니며, 로컬 서버와 기존 클라우드 서버의 UI·확장 기능은 다릅니다.')
+paragraph('PythonAnywhere: https://asdfgh0986.pythonanywhere.com 에 저장소의 새 Django 서버를 배포했습니다. 강의 JSON Array API와 확장 API, 토큰 로그인, multipart 업로드, 수정·삭제를 실제 HTTPS 요청으로 검증했습니다. 기존 프로젝트·DB와 웹 설정은 백업하고 새 서버는 별도 폴더·가상환경·DB를 사용합니다. Android에서 실제 로그인·사진 업로드·클라우드 동기화를 확인하고 완료 화면을 첨부했습니다.')
 paragraph('작성일: '+datetime.now(ZoneInfo('Asia/Seoul')).strftime('%Y-%m-%d')+' · 학번/이름은 제출자가 첫 페이지에 기입해야 합니다.')
 
 entries = [
@@ -167,9 +167,9 @@ entries = [
  ('A11-1','Upload UI (상)','강의 19쪽: onClickUpload → openEditor. 제목·이야기를 직접 입력하는 UI 방식 선택.','11-upload-form.png'),
  ('A11-2','Upload 사진 선택 완료','시스템 사진 선택기로 사진을 선택한 실제 화면.','11-upload-selected.png'),
  ('A11-3','Upload 서버 저장 및 동기화','uploadPost에서 multipart POST, 토큰 인증, 성공 후 강의 API 재동기화를 수행한 실제 완료 화면.','11-upload-complete.png'),
- ('A12-1','PythonAnywhere 서버 브라우저','사용자 계정의 기존 배포 블로그가 실제 HTTPS 주소에서 동작하는 화면. 새 Django 소스를 재배포했다는 증거는 아닙니다.','12-cloud-server.png'),
- ('A12-2','PythonAnywhere 강의 API','기존 서버의 정확한 /api_root/Post/ 경로가 JSON Array를 응답하는 실제 주소창 포함 화면.','12-cloud-api.png'),
- ('A13','Client 클라우드 동기화','새 Android 앱의 서버 주소를 기존 PythonAnywhere HTTPS 주소로 설정하고 실제 게시물과 꽃 사진을 수신한 화면.','13-cloud-client-synced.png'),
+ ('A12-1','PythonAnywhere 서버 브라우저','새 Django 사진 갤러리가 실제 PythonAnywhere HTTPS 주소에서 동작하는 화면.','12-cloud-server.png'),
+ ('A12-2','PythonAnywhere 강의 API','새 서버의 /api_root/Post/ 경로가 JSON Array를 응답하는 실제 주소창 포함 화면.','12-cloud-api.png'),
+ ('A13','Client 클라우드 동기화','Android 앱이 새 Django 서버로 사진을 실제 업로드한 뒤 HTTPS로 재동기화한 화면.','13-cloud-client-synced.png'),
  ('A14-1','즐겨찾기','Client 로컬 즐겨찾기 저장 및 필터 화면.','14-favorite.png'),
  ('A14-2','서버 설정','Client 서버 주소 및 강의 API 모드 설정 화면.','14-settings.png'),
  ('A14-3','최근 목록 캐시','앱 재실행 후 캐시된 목록과 즐겨찾기 유지 확인. 사진 원본은 네트워크 수신.','14-cache.png'),
@@ -185,7 +185,7 @@ for code, title, description, filename in entries:
     p.add_run(description)
 
 doc.add_page_break();doc.add_heading('검증 범위 및 재현 방법',1)
-paragraph('클라우드는 기존 배포 서버와 새 Android의 읽기/동기화 호환성을 검증했습니다. 새 Django 소스로 클라우드의 웹 화면·로그인·업로드 기능까지 교체하려면 계정 콘솔에서 docs/PYTHONANYWHERE.md의 WSGI·static/media 전환 절차를 추가로 수행해야 합니다. 보고서의 클라우드 완료 판정은 기존 서버 동작과 새 클라이언트 동기화에 한정됩니다.')
+paragraph('클라우드는 새 Django 소스로 전환했습니다. 실제 API 검증 결과는 docs/evidence/12-cloud-api-verification.json, 배포 경로와 이전 사이트 복구 절차는 docs/PYTHONANYWHERE.md에 기록했습니다. 비밀번호·토큰은 보고서와 GitHub에 포함하지 않습니다.')
 paragraph('테스트: cd PhotoBlogServer → python -m coverage run manage.py test -v 2 → python -m coverage html. Android: cd PhotoViewer → ./gradlew :app:assembleDebug :app:lintDebug. 상세 실행·인증·캡처 재현 방법은 README.md를 참조합니다.')
 paragraph('작성된 코드: posts/serializers.py, posts/views.py, posts/forms.py, posts/tests.py, MainActivity.java, ImageAdapter.java, scripts/socket_capture.py, scripts/verify_raw_http.py. 데모 풍경은 Pillow로 직접 생성한 일러스트입니다.')
 doc.save(TARGET)

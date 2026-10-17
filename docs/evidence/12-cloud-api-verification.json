@@ -1,0 +1,81 @@
+{
+  "server": "https://asdfgh0986.pythonanywhere.com",
+  "health": {
+    "status": "ok",
+    "service": "PhotoBlogServer",
+    "posts": 3
+  },
+  "server_redeployed": true,
+  "checks": [
+    {
+      "check": "health",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "service",
+      "actual": "PhotoBlogServer",
+      "expected": "PhotoBlogServer"
+    },
+    {
+      "check": "lecture array",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "lecture HTTP",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "paginated API",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "pagination",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check": "anonymous write rejected",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "check": "login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "multipart upload",
+      "actual": 201,
+      "expected": 201
+    },
+    {
+      "check": "uploaded image GET",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "PATCH",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "check": "updated title",
+      "actual": "클라우드 수정 확인",
+      "expected": "클라우드 수정 확인"
+    },
+    {
+      "check": "DELETE",
+      "actual": 204,
+      "expected": 204
+    },
+    {
+      "check": "deleted post",
+      "actual": 404,
+      "expected": 404
+    }
+  ]
+}
