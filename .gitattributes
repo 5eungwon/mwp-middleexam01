@@ -1,0 +1,8 @@
+* text=auto
+*.bat text eol=crlf
+PhotoViewer/gradlew text eol=lf
+*.png binary
+*.docx binary
+*.apk binary
+*.jar binary
+*.http whitespace=-blank-at-eof

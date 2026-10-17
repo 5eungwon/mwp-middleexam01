@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+*.sqlite3
+PhotoBlogServer/media/
+PhotoBlogServer/staticfiles/
+.gradle/
+**/build/
+local.properties
+.idea/
+.DS_Store
+.coverage
+.tools/
