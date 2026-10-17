@@ -7,7 +7,10 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 from docx import Document
 from docx.shared import Inches, Pt
-from docx.enum.text import WD_BREAK
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +20,7 @@ doc = Document(ROOT / 'docs/templates/report-template.docx')
 table = doc.tables[0]
 coverage = json.loads((OUT/'coverage.json').read_text())['totals']['percent_covered_display']
 
-# Each requirement refers to full-size evidence in the appendix rather than tiny table thumbnails.
+# Evidence thumbnails are embedded in their corresponding cells, retaining original image bytes.
 requirements = {
  2: ('완료','○','A01 · ROOT 폴더 캡처'),
  3: ('완료','○','https://github.com/5eungwon/mwp-middleexam01'),
@@ -70,26 +73,77 @@ for row in table.rows[2:]:
 
 def paragraph(text): doc.add_paragraph(text)
 
+# Disable automatic picture recompression on subsequent Word saves.
+settings = doc.settings.element
+compression = settings.find(qn('w:doNotAutoCompressPictures'))
+if compression is None:
+    compression = OxmlElement('w:doNotAutoCompressPictures')
+    settings.append(compression)
+compression.set(qn('w:val'), 'true')
+table.autofit = False
+for row in table.rows[:2]:
+    props = row._tr.get_or_add_trPr()
+    if props.find(qn('w:tblHeader')) is None:
+        props.append(OxmlElement('w:tblHeader'))
+
+EVIDENCE_ROWS = {
+    'A01':2, 'A03-1':4, 'A03-2':4, 'A03-3':4, 'A04':5,
+    'A05-1':6, 'A05-2':6, 'A06':7, 'A07':8, 'A08':9,
+    'A09':10, 'A10':11, 'A11-1':13, 'A11-2':13, 'A11-3':13,
+    'A12-1':14, 'A12-2':14, 'A13':15, 'A14-1':16,
+    'A14-2':17, 'A14-3':18, 'A14-4':19, 'A14-5':19, 'A14-6':20,
+}
+filled_rows = set()
+
 def evidence(code,title,description,filename):
-    doc.add_page_break()
-    doc.add_heading(f'증빙 {code} · {title}',1)
-    paragraph(description)
-    image=OUT/filename
+    cell = table.rows[EVIDENCE_ROWS[code]].cells[6]
+    first = EVIDENCE_ROWS[code] not in filled_rows
+    if first:
+        cell.text = ''
+        cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
+        props = cell._tc.get_or_add_tcPr()
+        margins = OxmlElement('w:tcMar')
+        for side in ('left', 'right'):
+            edge = OxmlElement('w:' + side)
+            edge.set(qn('w:w'), '80')
+            edge.set(qn('w:type'), 'dxa')
+            margins.append(edge)
+        previous = props.find(qn('w:tcMar'))
+        if previous is not None: props.remove(previous)
+        props.append(margins)
+        filled_rows.add(EVIDENCE_ROWS[code])
+    caption = cell.paragraphs[0] if first else cell.add_paragraph()
+    caption.paragraph_format.space_before = Pt(0 if first else 5)
+    caption.paragraph_format.space_after = Pt(2)
+    caption.paragraph_format.keep_with_next = True
+    caption.paragraph_format.line_spacing = 1
+    caption.add_run(f'{code} · {title}').font.size = Pt(7)
+    image = OUT/filename
     if not image.exists():
-        paragraph('미완료: 실제 캡처 파일이 아직 없습니다. '+filename)
+        cell.add_paragraph('미완료: 실제 캡처 없음 · ' + filename)
         return
     with Image.open(image) as im: w,h=im.size
-    section=doc.sections[-1]
-    maxw=(section.page_width-section.left_margin-section.right_margin)/914400
-    # Only set the display size. python-docx embeds the original pixel bytes without resampling.
-    width=min(maxw,7.6*w/h)
-    doc.add_picture(str(image),width=Inches(width))
-    paragraph(f'원본: docs/evidence/{filename} · {w}×{h}px (원본 해상도 유지)')
+    # Extents affect only the displayed size. add_picture embeds the source PNG unmodified.
+    available_width = cell.width/Inches(1) - 160/1440 - .025
+    width = min(available_width, 1.9*w/h)
+    picture = cell.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.paragraph_format.space_before = Pt(0)
+    picture.paragraph_format.space_after = Pt(0)
+    picture.paragraph_format.left_indent = Pt(0)
+    picture.paragraph_format.right_indent = Pt(0)
+    shape = picture.add_run().add_picture(str(image), width=Inches(width))
+    shape._inline.docPr.set('name', filename)
+    shape._inline.docPr.set('descr', f'{code} · {title} · 원본 {w}×{h}px')
+    pixels = cell.add_paragraph()
+    pixels.paragraph_format.space_before = Pt(0)
+    pixels.paragraph_format.space_after = Pt(3)
+    pixels.add_run(f'원본 {w}×{h}px').font.size = Pt(6.5)
 
 doc.add_page_break()
 doc.add_heading('구현 및 검증 개요',1)
 paragraph('프로젝트: 빛의 기록 · Django PhotoBlogServer / Java Android PhotoViewer')
-paragraph('기준 자료: 제공된 ch05_모바일 앱으로 사용하는 기본포토블로그_v1.1.pdf 및 제공 Word 원본 양식. 이 보고서는 원본 표를 유지하고 관련 증빙을 부록에 첨부했습니다. ch04 TDD 강의자료는 제공되지 않았으며, 양식에 명시된 Python 자동 테스트·Code Coverage HTML 요구사항을 구현했습니다.')
+paragraph('기준 자료: 제공된 ch05_모바일 앱으로 사용하는 기본포토블로그_v1.1.pdf 및 제공 Word 원본 양식. 이 보고서는 원본 표를 유지하고 관련 증빙 사진을 각 항목의 관련증빙 칸에 직접 삽입했습니다. 표시 크기만 줄였으며 원본 이미지 바이트와 픽셀 해상도는 유지했고 자동 이미지 압축을 껐습니다. ch04 TDD 강의자료는 제공되지 않았으며, 양식에 명시된 Python 자동 테스트·Code Coverage HTML 요구사항을 구현했습니다.')
 paragraph('강의 API: /api_root/Post/ → JSON Array. author(숫자), title, text, created_date, published_date, image를 제공하며 id와 author_name을 추가했습니다. created_date/published_date는 내부 생성/수정 시각에 대응합니다. 확장 API /api/posts/는 페이지형 응답을 유지합니다.')
 paragraph(f'검증 결과: Django APITestCase 17개 통과, 분기 포함 Code Coverage {coverage}%. 측정 범위는 posts 앱의 API/웹/모델/폼 코드이며 테스트·마이그레이션·데모 생성 코드는 제외했습니다. HTML 원본은 docs/coverage/index.html입니다.')
 paragraph('Android는 강의의 /api_root/Post/를 기본 사용하고 RecyclerView/ImageAdapter로 사진을 표시합니다. deprecated AsyncTask는 ExecutorService와 Handler로 대체했습니다. 사진 선택은 ACTION_OPEN_DOCUMENT를 사용하므로 전체 저장소 접근 권한은 필요하지 않습니다. 네트워크 HTTP 허용은 에뮬레이터/루프백에 제한하고 클라우드는 HTTPS를 사용합니다.')
@@ -124,6 +178,12 @@ entries = [
  ('A14-6','삭제 확인','제목을 표시하는 삭제 확인창. 캡처 후 취소했으며 실제 DELETE와 권한 검증은 자동 테스트로 확인.','14-delete-confirm.png'),
 ]
 for entry in entries: evidence(*entry)
+doc.add_heading('증빙 설명', 1)
+for code, title, description, filename in entries:
+    p = doc.add_paragraph()
+    p.add_run(f'{code} · {title}: ').bold = True
+    p.add_run(description)
+
 doc.add_page_break();doc.add_heading('검증 범위 및 재현 방법',1)
 paragraph('클라우드는 기존 배포 서버와 새 Android의 읽기/동기화 호환성을 검증했습니다. 새 Django 소스로 클라우드의 웹 화면·로그인·업로드 기능까지 교체하려면 계정 콘솔에서 docs/PYTHONANYWHERE.md의 WSGI·static/media 전환 절차를 추가로 수행해야 합니다. 보고서의 클라우드 완료 판정은 기존 서버 동작과 새 클라이언트 동기화에 한정됩니다.')
 paragraph('테스트: cd PhotoBlogServer → python -m coverage run manage.py test -v 2 → python -m coverage html. Android: cd PhotoViewer → ./gradlew :app:assembleDebug :app:lintDebug. 상세 실행·인증·캡처 재현 방법은 README.md를 참조합니다.')

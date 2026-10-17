@@ -19,7 +19,7 @@ ROOT/
 └── scripts/          # 실제 HTTP 검증, 캡처, Word 생성 도구
 ```
 
-보고서는 사용자가 제공한 원본 Word 표 양식을 유지해 작성했습니다. 각 증빙은 원본 해상도로 문서에 포함됩니다.
+보고서는 사용자가 제공한 원본 Word 표 양식을 유지해 작성했습니다. 증빙 사진 24장은 표의 각 관련증빙 칸에 작은 표시 크기로 넣고, 원본 이미지 바이트·해상도를 그대로 보존했습니다. 문서의 자동 이미지 압축도 껐습니다.
 
 ## 제공 자료 반영
 
@@ -127,6 +127,7 @@ python scripts/capture_web.py
 # macOS 실제 Chrome 주소창 포함 캡처 (별도 테스트 계정 파일 필요):
 # python scripts/capture_assignment.py
 python scripts/build_report.py
+python scripts/verify_report_images.py
 ```
 
 `verify_http.py`는 로컬 DB에 http-verifier 사용자를 만들고 테스트 사진을 생성·수정·삭제합니다. 실행 데이터는 SQLite/미디어에 남으므로 운영 서버에는 실행하지 않습니다. Android 증거는 실제 adb 스크린샷입니다. 테스트 계정 비밀번호/토큰과 DB/업로드 미디어는 저장소에서 제외합니다.
