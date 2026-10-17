@@ -1,0 +1,56 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Found 17 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, rest_framework, staticfiles
+  Apply all migrations: admin, auth, authtoken, contenttypes, posts, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying authtoken.0001_initial... OK
+  Applying authtoken.0002_auto_20160226_1747... OK
+  Applying authtoken.0003_tokenproxy... OK
+  Applying authtoken.0004_alter_tokenproxy_options... OK
+  Applying posts.0001_initial... OK
+  Applying sessions.0001_initial...test_anonymous_cannot_write (posts.tests.PostAPITests.test_anonymous_cannot_write) ... ok
+test_gallery_and_health (posts.tests.PostAPITests.test_gallery_and_health) ... ok
+test_invalid_image (posts.tests.PostAPITests.test_invalid_image) ... ok
+test_invalid_login_and_missing_post (posts.tests.PostAPITests.test_invalid_login_and_missing_post) ... ok
+test_lecture_contract_array_dates_and_numeric_author (posts.tests.PostAPITests.test_lecture_contract_array_dates_and_numeric_author) ... ok
+test_lecture_multipart_put_and_delete (posts.tests.PostAPITests.test_lecture_multipart_put_and_delete) ... ok
+test_other_user_cannot_modify_or_delete (posts.tests.PostAPITests.test_other_user_cannot_modify_or_delete) ... ok
+test_overlarge_pixel_dimensions (posts.tests.PostAPITests.test_overlarge_pixel_dimensions) ... ok
+test_oversize_image (posts.tests.PostAPITests.test_oversize_image) ... ok
+test_owner_patch_and_delete (posts.tests.PostAPITests.test_owner_patch_and_delete) ... ok
+test_public_paginated_list_and_detail (posts.tests.PostAPITests.test_public_paginated_list_and_detail) ... ok
+test_readonly_author_and_length (posts.tests.PostAPITests.test_readonly_author_and_length) ... ok
+test_real_token_multipart_upload_and_media (posts.tests.PostAPITests.test_real_token_multipart_upload_and_media) ... ok
+test_required_and_blank_fields (posts.tests.PostAPITests.test_required_and_blank_fields) ... ok
+test_search_order_and_second_page (posts.tests.PostAPITests.test_search_order_and_second_page) ... ok
+test_unsupported_format_and_web_form_image_validation (posts.tests.PostAPITests.test_unsupported_format_and_web_form_image_validation) ... ok
+test_web_form_login_create_detail_and_invalid (posts.tests.PostAPITests.test_web_form_login_create_detail_and_invalid) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 5.080s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+ OK
+System check identified no issues (0 silenced).

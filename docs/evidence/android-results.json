@@ -1,0 +1,24 @@
+{
+  "device": "Pixel 7 / Android 15 / API 35",
+  "upload": {
+    "id": 5,
+    "title": "Android Upload",
+    "author": "android-tester",
+    "server_persisted": true
+  },
+  "edit": {
+    "text": "Edited on Android client",
+    "server_persisted": true,
+    "client_displayed": true
+  },
+  "favorite": {
+    "client_displayed": true
+  },
+  "delete_confirmation": "Captured then cancelled; destructive API covered by server tests.",
+  "final_apk_smoke": {
+    "install_and_launch": true,
+    "cache_restored_after_restart": true,
+    "favorites_persisted_after_restart": true,
+    "live_sync_after_restart": true
+  }
+}

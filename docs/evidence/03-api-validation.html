@@ -1,0 +1,44 @@
+<meta charset="utf-8"><style>body{padding:30px;background:#f4f3ee;color:#253c2c;font:16px monospace}pre{white-space:pre-wrap;background:white;padding:24px;border-radius:12px}</style><h1>API 검증 (3/3) · 상세 / 수정 / 삭제 / 404</h1><p>실제 HTTP 요청과 응답 · expected = actual 확인</p><pre>[
+  {
+    &quot;request&quot;: &quot;GET /api/posts/4/&quot;,
+    &quot;expected&quot;: 200,
+    &quot;actual&quot;: 200,
+    &quot;response&quot;: {
+      &quot;id&quot;: 4,
+      &quot;author&quot;: &quot;http-verifier&quot;,
+      &quot;title&quot;: &quot;HTTP CRUD 검증&quot;,
+      &quot;text&quot;: &quot;&quot;,
+      &quot;image&quot;: &quot;http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png&quot;,
+      &quot;created_at&quot;: &quot;2026-10-17T18:15:29.156665+09:00&quot;,
+      &quot;updated_at&quot;: &quot;2026-10-17T18:15:29.156684+09:00&quot;
+    }
+  },
+  {
+    &quot;request&quot;: &quot;PATCH /api/posts/4/&quot;,
+    &quot;expected&quot;: 200,
+    &quot;actual&quot;: 200,
+    &quot;response&quot;: {
+      &quot;id&quot;: 4,
+      &quot;author&quot;: &quot;http-verifier&quot;,
+      &quot;title&quot;: &quot;HTTP 수정 완료&quot;,
+      &quot;text&quot;: &quot;&quot;,
+      &quot;image&quot;: &quot;http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png&quot;,
+      &quot;created_at&quot;: &quot;2026-10-17T18:15:29.156665+09:00&quot;,
+      &quot;updated_at&quot;: &quot;2026-10-17T18:15:29.161966+09:00&quot;
+    }
+  },
+  {
+    &quot;request&quot;: &quot;DELETE /api/posts/4/&quot;,
+    &quot;expected&quot;: 204,
+    &quot;actual&quot;: 204,
+    &quot;response&quot;: null
+  },
+  {
+    &quot;request&quot;: &quot;GET /api/posts/4/&quot;,
+    &quot;expected&quot;: 404,
+    &quot;actual&quot;: 404,
+    &quot;response&quot;: {
+      &quot;detail&quot;: &quot;No Post matches the given query.&quot;
+    }
+  }
+]</pre>

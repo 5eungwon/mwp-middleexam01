@@ -1,0 +1,10 @@
+Name                   Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------
+posts/__init__.py          0      0      0      0   100%
+posts/admin.py             7      0      0      0   100%
+posts/forms.py            18      0      2      1    95%   16->21
+posts/models.py           17      1      0      0    94%   23
+posts/serializers.py      24      0      6      0   100%
+posts/views.py            37      0      2      0   100%
+------------------------------------------------------------------
+TOTAL                    103      1     10      1    98%

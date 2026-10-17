@@ -1,0 +1,14 @@
+{
+  "endpoint": "http://127.0.0.1:8000/api_root/Post/",
+  "server_saved": {
+    "id": 9,
+    "author": 3,
+    "author_name": "android-tester",
+    "title": "Lecture Android Upload",
+    "text": "Lecture multipart upload",
+    "created_date": "2026-10-17T18:38:06.325985+09:00",
+    "published_date": "2026-10-17T18:38:06.326038+09:00",
+    "image": "http://127.0.0.1:8000/media/photos/843f681e3fe7491c98658a78cfdd2984.jpg"
+  },
+  "verified": "Actual Android multipart POST persisted; title/text match input form."
+}

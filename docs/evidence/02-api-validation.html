@@ -1,0 +1,53 @@
+<meta charset="utf-8"><style>body{padding:30px;background:#f4f3ee;color:#253c2c;font:16px monospace}pre{white-space:pre-wrap;background:white;padding:24px;border-radius:12px}</style><h1>API 검증 (2/3) · 조회 / 인증 / 입력 검증 / 업로드</h1><p>실제 HTTP 요청과 응답 · expected = actual 확인</p><pre>[
+  {
+    &quot;request&quot;: &quot;GET /api/health/&quot;,
+    &quot;expected&quot;: 200,
+    &quot;actual&quot;: 200,
+    &quot;response&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;service&quot;: &quot;PhotoBlogServer&quot;,
+      &quot;posts&quot;: 3
+    }
+  },
+  {
+    &quot;request&quot;: &quot;GET /api/posts/&quot;,
+    &quot;expected&quot;: 200,
+    &quot;actual&quot;: 200,
+    &quot;response&quot;: {
+      &quot;count&quot;: 3,
+      &quot;results&quot;: &quot;목록 본문은 http-results.json 참조&quot;
+    }
+  },
+  {
+    &quot;request&quot;: &quot;POST /api/posts/&quot;,
+    &quot;expected&quot;: 401,
+    &quot;actual&quot;: 401,
+    &quot;response&quot;: {
+      &quot;detail&quot;: &quot;자격 인증 데이터가 제공되지 않았습니다.&quot;
+    }
+  },
+  {
+    &quot;request&quot;: &quot;POST /api/posts/&quot;,
+    &quot;expected&quot;: 400,
+    &quot;actual&quot;: 400,
+    &quot;response&quot;: {
+      &quot;image&quot;: [
+        &quot;파일이 제출되지 않았습니다.&quot;
+      ]
+    }
+  },
+  {
+    &quot;request&quot;: &quot;POST /api/posts/&quot;,
+    &quot;expected&quot;: 201,
+    &quot;actual&quot;: 201,
+    &quot;response&quot;: {
+      &quot;id&quot;: 4,
+      &quot;author&quot;: &quot;http-verifier&quot;,
+      &quot;title&quot;: &quot;HTTP CRUD 검증&quot;,
+      &quot;text&quot;: &quot;&quot;,
+      &quot;image&quot;: &quot;http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png&quot;,
+      &quot;created_at&quot;: &quot;2026-10-17T18:15:29.156665+09:00&quot;,
+      &quot;updated_at&quot;: &quot;2026-10-17T18:15:29.156684+09:00&quot;
+    }
+  }
+]</pre>

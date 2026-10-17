@@ -1,0 +1,9 @@
+{
+  "server": "https://asdfgh0986.pythonanywhere.com",
+  "endpoint": "/api_root/Post/",
+  "client": "new Android PhotoViewer",
+  "visible_title": "블로그포스팅1",
+  "sync_verified": true,
+  "server_redeployed": false,
+  "scope": "Existing cloud server + new Android interoperability"
+}

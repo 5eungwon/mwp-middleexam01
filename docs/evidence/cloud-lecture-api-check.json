@@ -1,0 +1,5 @@
+{
+  "url": "https://asdfgh0986.pythonanywhere.com/api_root/Post/",
+  "status": 200,
+  "response_excerpt": "[{\"author\":1,\"title\":\"블로그포스팅1\",\"text\":\"과제제출을해보자.\",\"created_date\":\"2026-09-27T17:50:22+09:00\",\"published_date\":\"2026-09-27T17:50:38+09:00\",\"image\":\"https://asdfgh0986.pythonanywhere.com/media/images/2026/09/27/flower.jpg\"}]"
+}

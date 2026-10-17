@@ -1,0 +1,64 @@
+Connected to 127.0.0.1:8000 (TCP socket / telnet-compatible HTTP)
+>>> REQUEST
+GET /api_root/Post/ HTTP/1.1
+Host: 127.0.0.1:8000
+Accept: application/json
+Connection: close
+
+
+<<< RESPONSE
+HTTP/1.1 200 OK
+Date: Sat, 17 Oct 2026 09:29:25 GMT
+Server: WSGIServer/0.2 CPython/3.12.14
+Content-Type: application/json
+Vary: Accept, Cookie
+Allow: GET, POST, HEAD, OPTIONS
+X-Frame-Options: DENY
+Content-Length: 1242
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+
+[
+  {
+    "id": 5,
+    "author": 3,
+    "author_name": "android-tester",
+    "title": "Android Upload",
+    "text": "Edited on Android client",
+    "created_date": "2026-10-17T18:18:51.793227+09:00",
+    "published_date": "2026-10-17T18:22:56.878498+09:00",
+    "image": "http://127.0.0.1:8000/media/photos/6982144e73cc418d94421c2e817b1941.jpg"
+  },
+  {
+    "id": 3,
+    "author": 1,
+    "author_name": "demo",
+    "title": "숲으로 가는 길",
+    "text": "잠깐 멈추어 초록의 여유를 담았습니다.",
+    "created_date": "2026-10-17T18:14:49.054705+09:00",
+    "published_date": "2026-10-17T18:14:49.054714+09:00",
+    "image": "http://127.0.0.1:8000/media/photos/18fc1274de3a47688a25fc04dd42c585.jpg"
+  },
+  {
+    "id": 2,
+    "author": 1,
+    "author_name": "demo",
+    "title": "해 질 녘 바다",
+    "text": "파도 소리를 따라 걷던 어느 저녁.",
+    "created_date": "2026-10-17T18:14:49.051570+09:00",
+    "published_date": "2026-10-17T18:14:49.051580+09:00",
+    "image": "http://127.0.0.1:8000/media/photos/39e75ef9ca894e8a921184ea7efdeb67.jpg"
+  },
+  {
+    "id": 1,
+    "author": 1,
+    "author_name": "demo",
+    "title": "산의 아침",
+    "text": "고요한 능선 위로 새로운 하루가 밝아옵니다.",
+    "created_date": "2026-10-17T18:14:49.048125+09:00",
+    "published_date": "2026-10-17T18:14:49.048141+09:00",
+    "image": "http://127.0.0.1:8000/media/photos/0ac53d0c281249b585e07ab9f73e2f48.jpg"
+  }
+]
+PASS: HTTP 200 / JSON Array / 4 posts / lecture fields present

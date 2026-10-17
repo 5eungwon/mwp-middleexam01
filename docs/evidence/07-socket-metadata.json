@@ -1,0 +1,6 @@
+{
+  "source": "Actual Android HttpURLConnection TCP request",
+  "listen_port": 8001,
+  "forward_to": "127.0.0.1:8000",
+  "authorization_redacted": true
+}

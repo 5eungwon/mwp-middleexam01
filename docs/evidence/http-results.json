@@ -1,0 +1,125 @@
+[
+  {
+    "request": "GET /api/health/",
+    "expected": 200,
+    "actual": 200,
+    "response": {
+      "status": "ok",
+      "service": "PhotoBlogServer",
+      "posts": 3
+    }
+  },
+  {
+    "request": "GET /api/posts/",
+    "expected": 200,
+    "actual": 200,
+    "response": {
+      "count": 3,
+      "next": null,
+      "previous": null,
+      "results": [
+        {
+          "id": 3,
+          "author": "demo",
+          "title": "숲으로 가는 길",
+          "text": "잠깐 멈추어 초록의 여유를 담았습니다.",
+          "image": "http://127.0.0.1:8000/media/photos/18fc1274de3a47688a25fc04dd42c585.jpg",
+          "created_at": "2026-10-17T18:14:49.054705+09:00",
+          "updated_at": "2026-10-17T18:14:49.054714+09:00"
+        },
+        {
+          "id": 2,
+          "author": "demo",
+          "title": "해 질 녘 바다",
+          "text": "파도 소리를 따라 걷던 어느 저녁.",
+          "image": "http://127.0.0.1:8000/media/photos/39e75ef9ca894e8a921184ea7efdeb67.jpg",
+          "created_at": "2026-10-17T18:14:49.051570+09:00",
+          "updated_at": "2026-10-17T18:14:49.051580+09:00"
+        },
+        {
+          "id": 1,
+          "author": "demo",
+          "title": "산의 아침",
+          "text": "고요한 능선 위로 새로운 하루가 밝아옵니다.",
+          "image": "http://127.0.0.1:8000/media/photos/0ac53d0c281249b585e07ab9f73e2f48.jpg",
+          "created_at": "2026-10-17T18:14:49.048125+09:00",
+          "updated_at": "2026-10-17T18:14:49.048141+09:00"
+        }
+      ]
+    }
+  },
+  {
+    "request": "POST /api/posts/",
+    "expected": 401,
+    "actual": 401,
+    "response": {
+      "detail": "자격 인증 데이터가 제공되지 않았습니다."
+    }
+  },
+  {
+    "request": "POST /api/posts/",
+    "expected": 400,
+    "actual": 400,
+    "response": {
+      "image": [
+        "파일이 제출되지 않았습니다."
+      ]
+    }
+  },
+  {
+    "request": "POST /api/posts/",
+    "expected": 201,
+    "actual": 201,
+    "response": {
+      "id": 4,
+      "author": "http-verifier",
+      "title": "HTTP CRUD 검증",
+      "text": "",
+      "image": "http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png",
+      "created_at": "2026-10-17T18:15:29.156665+09:00",
+      "updated_at": "2026-10-17T18:15:29.156684+09:00"
+    }
+  },
+  {
+    "request": "GET /api/posts/4/",
+    "expected": 200,
+    "actual": 200,
+    "response": {
+      "id": 4,
+      "author": "http-verifier",
+      "title": "HTTP CRUD 검증",
+      "text": "",
+      "image": "http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png",
+      "created_at": "2026-10-17T18:15:29.156665+09:00",
+      "updated_at": "2026-10-17T18:15:29.156684+09:00"
+    }
+  },
+  {
+    "request": "PATCH /api/posts/4/",
+    "expected": 200,
+    "actual": 200,
+    "response": {
+      "id": 4,
+      "author": "http-verifier",
+      "title": "HTTP 수정 완료",
+      "text": "",
+      "image": "http://127.0.0.1:8000/media/photos/6400f1ededd5481bb850308b570e1bef.png",
+      "created_at": "2026-10-17T18:15:29.156665+09:00",
+      "updated_at": "2026-10-17T18:15:29.161966+09:00"
+    }
+  },
+  {
+    "request": "DELETE /api/posts/4/",
+    "expected": 204,
+    "actual": 204,
+    "response": null
+  },
+  {
+    "request": "GET /api/posts/4/",
+    "expected": 404,
+    "actual": 404,
+    "response": {
+      "detail": "No Post matches the given query."
+    }
+  }
+]

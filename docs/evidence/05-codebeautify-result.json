@@ -1,0 +1,11 @@
+{
+  "service": "https://codebeautify.org/jsonviewer",
+  "json_array": true,
+  "posts": 6,
+  "input_matches_raw_tcp_body": true,
+  "actions": [
+    "Beautify",
+    "Validate",
+    "Tree expandAll"
+  ]
+}
