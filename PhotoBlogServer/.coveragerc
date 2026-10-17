@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = posts
+omit =
+    */tests.py
+    */migrations/*
+    */management/*
+[report]
+show_missing = True
+[html]
+directory = ../docs/coverage
